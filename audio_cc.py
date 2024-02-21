@@ -1,3 +1,8 @@
+import wave
+import numpy as np
+import matplotlib.pyplot as plt
+
+
 def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nfft=1024, cmap='viridis'):
     # Open the WAV file
     with wave.open(wav_file_path, 'rb') as wav_file:
