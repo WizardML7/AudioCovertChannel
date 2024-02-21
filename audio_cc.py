@@ -1,6 +1,7 @@
 import wave
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
 
 def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nfft=1024, cmap='viridis'):
     """
@@ -47,3 +48,39 @@ def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nf
         plt.ylim(frequency_range)
 
     plt.show()
+
+
+def parse_arguments():
+    """
+    Parses command line arguments.
+    """
+    parser = argparse.ArgumentParser(description='Plot the spectrogram of a WAV audio file.')
+    parser.add_argument('wav_file_path', type=str, help='Path to the WAV file.')
+    parser.add_argument('--time_range', type=float, nargs=2, metavar=('START', 'END'), help='Time range in seconds to plot, e.g., --time_range 0 10')
+    parser.add_argument('--frequency_range', type=float, nargs=2, metavar=('LOW', 'HIGH'), help='Frequency range in Hz to plot, e.g., --frequency_range 20 20000')
+    parser.add_argument('--nfft', type=int, default=1024, help='Number of FFT points. Default is 1024.')
+    parser.add_argument('--cmap', type=str, default='viridis', help='Colormap for the spectrogram. Default is "viridis".')
+
+    return parser.parse_args()
+
+def main():
+    """
+    Main function to handle command line arguments and plot the audio spectrum.
+    """
+    args = parse_arguments()
+    
+    # Convert time and frequency ranges from list to tuple, or None if not specified
+    time_range = tuple(args.time_range) if args.time_range else None
+    frequency_range = tuple(args.frequency_range) if args.frequency_range else None
+    
+    # Call the plot function with command line arguments
+    plot_audio_spectrum(
+        args.wav_file_path, 
+        time_range=time_range, 
+        frequency_range=frequency_range, 
+        nfft=args.nfft, 
+        cmap=args.cmap
+    )
+
+if __name__ == '__main__':
+    main()
