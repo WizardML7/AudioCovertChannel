@@ -95,7 +95,7 @@ def embed_hidden_message(wav_file_path, message):
     modified_data_real = np.real(modified_data).astype(np.int16)
     
     # Save the modified audio
-    wavfile.write('modified_' + wav_file_path, sample_rate, modified_data_real)
+    wavfile.write(wav_file_path + "_modified", sample_rate, modified_data_real)
     print(f"Message embedded and saved to 'modified_{wav_file_path}'.")
 
 
