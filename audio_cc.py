@@ -51,9 +51,52 @@ def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nf
 
     plt.show()
 
+def text_to_binary(message):
+    return ''.join(format(ord(char), '08b') for char in message)
+
 def embed_hidden_message(wav_file_path, message):
-    # Placeholder for the function to embed a message in the specified frequency range
-    print(f"Embedding message in {wav_file_path}... (This functionality is not yet implemented.)")
+    # Convert the message to binary
+    binary_message = text_to_binary(message)
+    message_length = len(binary_message)
+    
+    # Read the WAV file
+    sample_rate, data = wavfile.read(wav_file_path)
+    
+    # Ensure the data is mono
+    if data.ndim > 1:
+        data = data[:, 0]  # Use the first channel
+    
+    # Apply FFT
+    freq_data = fft(data)
+    freq_data_len = len(freq_data)
+    
+    # Frequency resolution and range
+    freq_resolution = sample_rate / freq_data_len
+    start_freq = 14500
+    end_freq = 16000
+    start_index = int(start_freq / freq_resolution)
+    end_index = int(end_freq / freq_resolution)
+    available_slots = end_index - start_index
+    
+    # Check if we have enough slots to encode the message
+    if message_length > available_slots:
+        raise ValueError("Message too long to encode in the given frequency range.")
+    
+    # Encode the message by altering the amplitude
+    for i, bit in enumerate(binary_message):
+        index = start_index + i
+        if bit == '1':
+            # Increase the amplitude to encode '1'
+            freq_data[index] *= 10  # Example amplification factor; adjust as needed
+        # No else clause; we leave '0's as they are for simplicity
+    
+    # Apply inverse FFT
+    modified_data = ifft(freq_data)
+    modified_data_real = np.real(modified_data).astype(np.int16)
+    
+    # Save the modified audio
+    wavfile.write('modified_' + wav_file_path, sample_rate, modified_data_real)
+    print(f"Message embedded and saved to 'modified_{wav_file_path}'.")
 
 
 def parse_arguments():
