@@ -2,6 +2,8 @@ import wave
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
+from scipy.io import wavfile
+from scipy.fft import fft, ifft
 
 def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nfft=1024, cmap='viridis'):
     """
@@ -49,6 +51,10 @@ def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nf
 
     plt.show()
 
+def embed_hidden_message(wav_file_path, message):
+    # Placeholder for the function to embed a message in the specified frequency range
+    print(f"Embedding message in {wav_file_path}... (This functionality is not yet implemented.)")
+
 
 def parse_arguments():
     """
@@ -64,23 +70,26 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
-    """
-    Main function to handle command line arguments and plot the audio spectrum.
-    """
-    args = parse_arguments()
-    
-    # Convert time and frequency ranges from list to tuple, or None if not specified
-    time_range = tuple(args.time_range) if args.time_range else None
-    frequency_range = tuple(args.frequency_range) if args.frequency_range else None
-    
-    # Call the plot function with command line arguments
-    plot_audio_spectrum(
-        args.wav_file_path, 
-        time_range=time_range, 
-        frequency_range=frequency_range, 
-        nfft=args.nfft, 
-        cmap=args.cmap
-    )
+    parser = argparse.ArgumentParser(description="Audio file analysis and manipulation tool")
+    subparsers = parser.add_subparsers(dest='command', help='Sub-command help')
+
+    # Create the parser for the "plot" command
+    parser_plot = subparsers.add_parser('plot', help='Plot the audio spectrum of a file')
+    parser_plot.add_argument("wav_file", help="Path to the WAV file to plot")
+
+    # Create the parser for the "embed" command
+    parser_embed = subparsers.add_parser('embed', help='Embed a hidden message in an audio file')
+    parser_embed.add_argument("wav_file", help="Path to the WAV file in which to embed the message")
+    parser_embed.add_argument("--message", help="The message to embed within the audio file", required=True)
+
+    args = parser.parse_args()
+
+    if args.command == 'plot':
+        plot_audio_spectrum(args.wav_file)
+    elif args.command == 'embed':
+        embed_hidden_message(args.wav_file, args.message)
+    else:
+        parser.print_help()
 
 if __name__ == '__main__':
     main()
