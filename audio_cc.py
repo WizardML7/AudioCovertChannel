@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import argparse
 from scipy.io import wavfile
 from scipy.fft import fft, ifft
+import os
 
 def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nfft=1024, cmap='viridis'):
     """
@@ -55,6 +56,10 @@ def text_to_binary(message):
     return ''.join(format(ord(char), '08b') for char in message)
 
 def embed_hidden_message(wav_file_path, message):
+    # Check if the file exists
+    if not os.path.exists(wav_file_path):
+        raise ValueError(f"The file {wav_file_path} does not exist.")
+
     # Convert the message to binary
     binary_message = text_to_binary(message)
     message_length = len(binary_message)
