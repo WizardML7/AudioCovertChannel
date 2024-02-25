@@ -103,6 +103,32 @@ def embed_hidden_message(wav_file_path, message):
     wavfile.write(wav_file_path + "_modified", sample_rate, modified_data_real)
     print(f"Message embedded and saved to 'modified_{wav_file_path}'.")
 
+def blot_out_frequency_range_explicit(wav_file_path, start_freq, end_freq):
+    sample_rate, data = wavfile.read(wav_file_path)
+    
+    # Handle stereo by selecting the first channel or converting to mono
+    if data.ndim > 1:
+        data = data.mean(axis=1)  # Convert to mono by averaging channels
+    
+    # Apply FFT
+    freq_data = fft(data)
+    N = len(data)
+    
+    # Determine frequency indices
+    start_index = int(start_freq / sample_rate * N)
+    end_index = int(end_freq / sample_rate * N)
+    
+    # Explicitly zero out the targeted frequency range
+    freq_data[start_index:end_index] = 0 + 0j  # Ensure it's set as a complex number
+    
+    # Apply inverse FFT and take the real part
+    modified_data = np.real(ifft(freq_data)).astype(data.dtype)
+    
+    # Save the modified audio
+    wavfile.write(wav_file_path + "_modified.wav", sample_rate, modified_data)
+
+    # Optionally, plot the result to verify
+    plot_audio_spectrum(wav_file_path)
 
 def parse_arguments():
     """
@@ -118,6 +144,9 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
+    blot_out_frequency_range_explicit('encoded_audio_clips/AI_Generated_1_modified.wav', 14500, 16000)
+
+
     parser = argparse.ArgumentParser(description="Audio file analysis and manipulation tool")
     subparsers = parser.add_subparsers(dest='command', help='Sub-command help')
 
