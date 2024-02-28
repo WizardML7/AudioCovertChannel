@@ -130,6 +130,39 @@ def blot_out_frequency_range_explicit(wav_file_path, start_freq, end_freq):
     # Optionally, plot the result to verify
     plot_audio_spectrum(wav_file_path)
 
+def blot_out_frequency_across_entire_file(wav_file_path, start_freq, end_freq):
+    # Load the audio file
+    sample_rate, data = wavfile.read(wav_file_path)
+    
+    # Ensure audio is mono for simplicity
+    if data.ndim > 1:
+        data = data[:,0]  # Use the first channel
+    
+    # Apply FFT to the entire audio signal
+    freq_data = fft(data)
+    
+    # Calculate the frequency indices corresponding to the desired frequency range
+    length = len(freq_data)
+    print(length)
+    freq_bin_width = sample_rate / length
+    start_index = int(start_freq / freq_bin_width)
+    print(start_index)
+    end_index = int(end_freq / freq_bin_width)
+    print(end_index)
+    
+    # Zero out the specified frequency range
+    freq_data[start_index:end_index] = 0
+    freq_data[-end_index:-start_index] = 0  # Mirror for negative frequencies in FFT output
+    
+    # Apply inverse FFT to convert back to time domain
+    modified_data = ifft(freq_data)
+    
+    # Save the modified audio signal, ensuring to convert to the appropriate dtype
+    modified_data_real = np.real(modified_data).astype(data.dtype)
+    wavfile.write(wav_file_path, sample_rate, modified_data_real)
+
+    print(f"Operation completed. Frequency range {start_freq} Hz to {end_freq} Hz blotted out.")
+
 def parse_arguments():
     """
     Parses command line arguments.
@@ -144,7 +177,7 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
-    blot_out_frequency_range_explicit('encoded_audio_clips/AI_Generated_1_modified.wav', 14500, 16000)
+    blot_out_frequency_across_entire_file('encoded_audio_clips/AI_Generated_1_modified.wav', 1000, 16000)
 
 
     parser = argparse.ArgumentParser(description="Audio file analysis and manipulation tool")
