@@ -6,7 +6,7 @@ from scipy.io import wavfile
 from scipy.fft import fft, ifft
 import os
 
-def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nfft=1024, cmap='viridis'):
+def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nfft=1024, cmap='plasma'):
     """
     Plots the spectrogram of an audio file specified by 'wav_file_path'.
     
@@ -177,7 +177,7 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
-    blot_out_frequency_across_entire_file('encoded_audio_clips/AI_Generated_1_modified.wav', 1000, 16000)
+    # blot_out_frequency_across_entire_file('encoded_audio_clips/AI_Generated_1_modified.wav', 1000, 16000)
 
 
     parser = argparse.ArgumentParser(description="Audio file analysis and manipulation tool")
