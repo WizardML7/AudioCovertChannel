@@ -1,19 +1,17 @@
 import wave
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import argparse
 from scipy.io import wavfile
 from scipy.fft import fft, ifft
 import os
 from scipy.signal import spectrogram
 from scipy.io.wavfile import write
-import matplotlib.pyplot as plt
-
+import math
 
 # Sample rate and time vector setup
 sample_rate = 44100  # Standard CD-quality sample rate
-time = np.linspace(0, 2, 2 * sample_rate)  # Adjust for num of characters / 8. For example, 0 to 3 for a message with 24 letters.
-
+time = 0
 
 def square(start_time_tones, end_time_tones, freq1, freq2):
 
@@ -30,8 +28,19 @@ def square(start_time_tones, end_time_tones, freq1, freq2):
 
     return audio_signal_continuous_tones
 
-# ===== X1 =====
+def read_wav_file(filepath):
+    # Read the existing WAV file. This is the file to write the message on top of.
+    sample_rate, signal = wavfile.read(filepath)
+    signal = signal.astype(np.float32)
 
+    # Ensure signal is in the correct format (mono)
+    if len(signal.shape) > 1:
+        signal = signal[:, 0] # Take the first channel if stereo
+
+    return signal
+
+
+# ===== X1 =====
 
 def makeX1Y1(audio_signal_continuous_tones, audioLength, currentPlace):
     audio_signal_continuous_tones += square((currentPlace * audioLength * .025), ((currentPlace + 1) * audioLength * .025), 19750, 20000)
@@ -85,7 +94,6 @@ def makeX3Y5(audio_signal_continuous_tones, audioLength, currentPlace):
     audio_signal_continuous_tones += square(((currentPlace + 2) * audioLength * .025), ((currentPlace + 3) * audioLength * .025), 17750, 18000)
 
 
-
 # ===== X4 =====
 
 def makeX4Y1(audio_signal_continuous_tones, audioLength, currentPlace):
@@ -102,8 +110,6 @@ def makeX4Y4(audio_signal_continuous_tones, audioLength, currentPlace):
 
 def makeX4Y5(audio_signal_continuous_tones, audioLength, currentPlace):
     audio_signal_continuous_tones += square(((currentPlace + 3) * audioLength * .025), ((currentPlace + 4) * audioLength * .025), 17750, 18000)
-
-
 
 
 # A
@@ -191,48 +197,114 @@ def makeC(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
     return currentTime
 
+# D
+def makeD(audio_signal_continuous_tones, audioLength, currentTime):
+    # Left vertical line
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    
+    # Top
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
 
-def read_wav_file(filepath):
-    # Read the existing WAV file. This is the file to write the message on top of.
-    sample_rate, signal = wavfile.read(filepath)
-    signal = signal.astype(np.float32)
+    # Bottom
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
 
-    # Ensure signal is in the correct format (mono)
-    if len(signal.shape) > 1:
-        signal = signal[:, 0] # Take the first channel if stereo
+    # Side
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    currentTime += 5
+    return currentTime
 
-    return signal
+# E
+def makeE(audio_signal_continuous_tones, audioLength, currentTime):
+    # Side
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
 
+    # Top
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y1(audio_signal_continuous_tones, audioLength, currentTime)
+
+    # Middle
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    # Bottom
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y5(audio_signal_continuous_tones, audioLength, currentTime)
+    currentTime += 5
+    return currentTime
+
+# F
+
+def makeSpace(audio_signal_continuous_tones, audioLength, currentTime):
+    currentTime += 5
+    return currentTime
 
 def main():
 
-    ### Create the audio signal with the letters in them. ### 
+    ### argpase ###
+    parser = argparse.ArgumentParser(
+        description="AudioCovertChannel: Hide messages in the spectrogram of WAV files",
+        epilog="Usage: python3 audio_covert.py <input.wav> <output.wav> <message>. \
+        \n Message will need to be in quotes if adding spaces."
+    )
 
+    # Positional arguments
+    parser.add_argument("infile", help="Input audio file path")
+    parser.add_argument("outfile", help="Output audio file path")
+    parser.add_argument("message", help="Message to embed in the audio spectrogram")
+    args = parser.parse_args()
+
+    ### Create the audio signal with the letters in them. ###
+
+    # Message Processing
+
+    message = (args.message).upper()
+
+    # Deal with varying message length.
+    # The 'time' array needs to be long enough to support the entire message. 
+    # The higher it is, the longer is takes, so instead of making it very large we should dynamically adjust it to the message len.
+    # There are 8 charatcers in a second. So if we have 25 characters, thats ceil(25 / 8) = 4, 4 seconds of space needed.
+    message_seconds = math.ceil(len(message) / 8)
+    global time
+    time = np.linspace(0, message_seconds, message_seconds * sample_rate)
+    
     # Creating a starting square. Tiny and out of sight range
     audio_signal_continuous_tones = square(0, 0.001, 20000, 20001)
-
     currentTime = 0
-    # Second 1:
-    currentTime = makeA(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeA(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeA(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeB(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeB(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeB(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
-    # Can fit 8 characters in 1 second interval. Second 2:
-    currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeA(audio_signal_continuous_tones, 1, currentTime)
-    currentTime = makeA(audio_signal_continuous_tones, 1, currentTime)
+
+    print("\nEncoding message: " + message)
+    for letter in message:
+        print("\rProgress: Encoding \'" + letter + "\' ", end="")
+        match letter:
+            case 'A':
+                currentTime = makeA(audio_signal_continuous_tones, 1, currentTime)
+            case 'B':
+                currentTime = makeB(audio_signal_continuous_tones, 1, currentTime)
+            case 'C':
+                currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
+            case 'D':
+                currentTime = makeD(audio_signal_continuous_tones, 1, currentTime)
+            case 'E':
+                currentTime = makeE(audio_signal_continuous_tones, 1, currentTime)
+            case ' ':
+                currentTime = makeSpace(audio_signal_continuous_tones, 1, currentTime)
+            case _:
+                raise ValueError("Unsupported letter: " + letter + ", please only use A-Z.")
 
     ### Mix the square signal with the signal of the input file ###
 
-    # Read infile. Put this into an argpase CLI later
-    file_to_overlay = "./audio_clips/popular_songs/Britney_Spears_Toxic.wav"
+    # Read infile
+    file_to_overlay = args.infile
     file_to_overlay_signal = read_wav_file(file_to_overlay) # Get signal of file
 
     signal1 = file_to_overlay_signal
@@ -240,7 +312,7 @@ def main():
 
     # Extend the shorter signal by padding with zeros
     # This ensures that length of message doesn't affect the length of the song.
-    # Ex. 16 character message doesn't make the song limited to 2 seconds. The rest of the song will play unmodified after the message.
+    # Ex. 16 character message doesn't make the song limited to 2 seconds. The rest of the song will be unmodified after the message.
     max_length = max(len(signal1), len(signal2))
     extended_signal1 = np.pad(signal1, (0, max_length - len(signal1)), 'constant')
     extended_signal2 = np.pad(signal2, (0, max_length - len(signal2)), 'constant')
@@ -252,19 +324,16 @@ def main():
     # Mix the signals
     mixed_signal = extended_signal1 + extended_signal2
 
-    # Normalize.
+    # Normalize
     max_val = np.max(np.abs(mixed_signal))
     if max_val > 1:
         mixed_signal = mixed_signal / max_val
 
     # Export to a WAV file
-    outfile = "./toxic_modified.wav" # Change this once the CLI is added.
-    write(outfile, sample_rate, mixed_signal.astype(np.float32))
+    write(args.outfile, sample_rate, mixed_signal.astype(np.float32))
 
     # TODO:
-    # Create a argparse for CLI: Ex. "python3 audio_covert.py <infile> <outfile> <message>
     # Make the rest of the letters
-    # Currently only supports 2 seconds of letters (8 "letter spaces" total). See line 15. Will need to change based on len of message. The higher it is, the longer is takes, so instead of just making it something very large we should dynamically adjust it to the message len.
 
     # NOTE:
     # Instead of using the plotter, I'm using the program Audacity to view the spectrogram.
@@ -273,6 +342,7 @@ def main():
     # Plus plotter takes like minutes to load/plot an entire song on my laptop.
     # Unless we could make plotter better, I think we should use Audacity for demonstration purposes.
 
+    # Plotter code commented out
     # # Generate the spectrogram for the less dense tones
     # frequencies_continuous, times_continuous, spectrogram_matrix_continuous = spectrogram(mixed_signal, sample_rate)
     # # Plot the spectrogram
