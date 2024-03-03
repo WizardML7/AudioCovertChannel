@@ -140,7 +140,6 @@ def makeA(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
     return currentTime
 
-
 # B
 def makeB(audio_signal_continuous_tones, audioLength, currentTime):
     # Top horizontal Line
@@ -172,7 +171,6 @@ def makeB(audio_signal_continuous_tones, audioLength, currentTime):
     # Increment for next letter
     currentTime += 5
     return currentTime
-
 
 # C
 def makeC(audio_signal_continuous_tones, audioLength, currentTime):
@@ -244,18 +242,94 @@ def makeE(audio_signal_continuous_tones, audioLength, currentTime):
     return currentTime
 
 # F
+def makeF(audio_signal_continuous_tones, audioLength, currentTime):
+    # Side
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
 
+    # Top
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y1(audio_signal_continuous_tones, audioLength, currentTime)
+
+    # Middle
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    currentTime += 5
+    return currentTime
+
+# G
+def makeG(audio_signal_continuous_tones, audioLength, currentTime):
+    # Side
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    # Top
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    # Bottom
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX4Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    currentTime += 5
+    return currentTime
+
+# H
+def makeH(audio_signal_continuous_tones, audioLength, currentTime):
+    # Left
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    # Right
+    makeX4Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    # Middle
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    currentTime += 5
+    return currentTime
+
+# I
+def makeI(audio_signal_continuous_tones, audioLength, currentTime):
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+    currentTime += 5
+    return currentTime
+
+# Space
 def makeSpace(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
     return currentTime
 
 def main():
+    # Example usage: python3 square\ copy.py ./audio_clips/popular_songs/Britney_Spears_Toxic.wav ./toxic_test.wav "ABCDEFGHI ABCDEFGHI"
 
     ### argpase ###
     parser = argparse.ArgumentParser(
         description="AudioCovertChannel: Hide messages in the spectrogram of WAV files",
         epilog="Usage: python3 audio_covert.py <input.wav> <output.wav> <message>. \
-        \n Message will need to be in quotes if adding spaces."
+        Message will need to be in quotes if adding spaces."
     )
 
     # Positional arguments
@@ -296,6 +370,14 @@ def main():
                 currentTime = makeD(audio_signal_continuous_tones, 1, currentTime)
             case 'E':
                 currentTime = makeE(audio_signal_continuous_tones, 1, currentTime)
+            case 'F':
+                currentTime = makeF(audio_signal_continuous_tones, 1, currentTime)
+            case 'G':
+                currentTime = makeG(audio_signal_continuous_tones, 1, currentTime)
+            case 'H':
+                currentTime = makeH(audio_signal_continuous_tones, 1, currentTime)
+            case 'I':
+                currentTime = makeI(audio_signal_continuous_tones, 1, currentTime)
             case ' ':
                 currentTime = makeSpace(audio_signal_continuous_tones, 1, currentTime)
             case _:
@@ -331,6 +413,7 @@ def main():
 
     # Export to a WAV file
     write(args.outfile, sample_rate, mixed_signal.astype(np.float32))
+    print("\nDone")
 
     # TODO:
     # Make the rest of the letters
