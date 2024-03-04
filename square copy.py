@@ -111,6 +111,23 @@ def makeX4Y4(audio_signal_continuous_tones, audioLength, currentPlace):
 def makeX4Y5(audio_signal_continuous_tones, audioLength, currentPlace):
     audio_signal_continuous_tones += square(((currentPlace + 3) * audioLength * .025), ((currentPlace + 4) * audioLength * .025), 17750, 18000)
 
+# ===== X5 =====
+
+def makeX5Y1(audio_signal_continuous_tones, audioLength, currentPlace):
+    audio_signal_continuous_tones += square(((currentPlace + 4) * audioLength * .025), ((currentPlace + 5) * audioLength * .025), 19750, 20000)
+
+def makeX5Y2(audio_signal_continuous_tones, audioLength, currentPlace):
+    audio_signal_continuous_tones += square(((currentPlace + 4) * audioLength * .025), ((currentPlace + 5) * audioLength * .025), 19250, 19500)
+
+def makeX5Y3(audio_signal_continuous_tones, audioLength, currentPlace):
+    audio_signal_continuous_tones += square(((currentPlace + 4) * audioLength * .025), ((currentPlace + 5) * audioLength * .025), 18750, 19000)
+
+def makeX5Y4(audio_signal_continuous_tones, audioLength, currentPlace):
+    audio_signal_continuous_tones += square(((currentPlace + 4) * audioLength * .025), ((currentPlace + 5) * audioLength * .025), 18250, 18500)
+
+def makeX5Y5(audio_signal_continuous_tones, audioLength, currentPlace):
+    audio_signal_continuous_tones += square(((currentPlace + 4) * audioLength * .025), ((currentPlace + 5) * audioLength * .025), 17750, 18000)
+
 
 # A
 def makeA(audio_signal_continuous_tones, audioLength, currentTime):
@@ -317,11 +334,356 @@ def makeI(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
     return currentTime
 
-#J
-# def makeJ(audio_signal_continuous_tones, audioLength, currentTime):
+def makeJ(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
     
-#     currentTime += 5
-#     return currentTime
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+  
+
+    currentTime += 5
+    return currentTime
+
+
+def makeK(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+
+    currentTime += 5
+    return currentTime
+
+def makeL(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+   
+
+
+    currentTime += 5
+    return currentTime
+
+def makeM(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y2(audio_signal_continuous_tones, audioLength, currentTime)
+   
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX4Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    
+
+    makeX5Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+    currentTime += 5
+    return currentTime
+
+def makeN(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y2(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    
+
+    makeX4Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX4Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+
+    currentTime += 5
+    return currentTime
+
+def makeO(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+    currentTime += 5
+    return currentTime
+
+def makeP(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+    currentTime += 5
+    return currentTime
+
+def makeQ(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX4Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+   
+    currentTime += 5
+    return currentTime
+
+def makeR(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+    currentTime += 5
+    return currentTime
+
+def makeS(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+
+    currentTime += 5
+    return currentTime
+
+def makeT(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+
+    currentTime += 5
+    return currentTime
+
+def makeU(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+
+    currentTime += 5
+    return currentTime
+
+def makeV(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+    currentTime += 5
+    return currentTime
+
+def makeW(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y4(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX4Y4(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX5Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX5Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+    currentTime += 5
+    return currentTime
+
+def makeX(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    currentTime += 5
+    return currentTime
+
+def makeY(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+
+    currentTime += 5
+    return currentTime
+
+def makeZ(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+
+    currentTime += 5
+    return currentTime
 
 # Space
 def makeSpace(audio_signal_continuous_tones, audioLength, currentTime):
@@ -384,6 +746,40 @@ def main():
                 currentTime = makeH(audio_signal_continuous_tones, 1, currentTime)
             case 'I':
                 currentTime = makeI(audio_signal_continuous_tones, 1, currentTime)
+            case 'J':
+                currentTime = makeJ(audio_signal_continuous_tones, 1, currentTime)
+            case 'K':
+                currentTime = makeK(audio_signal_continuous_tones, 1, currentTime)
+            case 'L':
+                currentTime = makeL(audio_signal_continuous_tones, 1, currentTime)
+            case 'M':
+                currentTime = makeM(audio_signal_continuous_tones, 1, currentTime)
+            case 'N':
+                currentTime = makeN(audio_signal_continuous_tones, 1, currentTime)
+            case 'O':
+                currentTime = makeO(audio_signal_continuous_tones, 1, currentTime)
+            case 'P':
+                currentTime = makeP(audio_signal_continuous_tones, 1, currentTime)
+            case 'Q':
+                currentTime = makeQ(audio_signal_continuous_tones, 1, currentTime)
+            case 'R':
+                currentTime = makeR(audio_signal_continuous_tones, 1, currentTime)
+            case 'S':
+                currentTime = makeS(audio_signal_continuous_tones, 1, currentTime)
+            case 'T':
+                currentTime = makeT(audio_signal_continuous_tones, 1, currentTime)
+            case 'U':
+                currentTime = makeU(audio_signal_continuous_tones, 1, currentTime)
+            case 'V':
+                currentTime = makeV(audio_signal_continuous_tones, 1, currentTime)
+            case 'W':
+                currentTime = makeW(audio_signal_continuous_tones, 1, currentTime)
+            case 'X':
+                currentTime = makeX(audio_signal_continuous_tones, 1, currentTime)
+            case 'Y':
+                currentTime = makeY(audio_signal_continuous_tones, 1, currentTime)
+            case 'Z':
+                currentTime = makeZ(audio_signal_continuous_tones, 1, currentTime)
             case ' ':
                 currentTime = makeSpace(audio_signal_continuous_tones, 1, currentTime)
             case _:
