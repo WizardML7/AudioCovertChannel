@@ -317,6 +317,12 @@ def makeI(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
     return currentTime
 
+#J
+# def makeJ(audio_signal_continuous_tones, audioLength, currentTime):
+    
+#     currentTime += 5
+#     return currentTime
+
 # Space
 def makeSpace(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
