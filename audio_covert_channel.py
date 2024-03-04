@@ -1,6 +1,6 @@
 import wave
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import argparse
 from scipy.io import wavfile
 from scipy.fft import fft, ifft
@@ -702,6 +702,7 @@ def main():
     parser.add_argument("outfile", help="Output audio file path")
     parser.add_argument("message", help="Message to embed in the audio spectrogram")
     args = parser.parse_args()
+    
 
     ### Create the audio signal with the letters in them. ###
 
@@ -826,15 +827,16 @@ def main():
 
     # Plotter code commented out
     # # Generate the spectrogram for the less dense tones
-    # frequencies_continuous, times_continuous, spectrogram_matrix_continuous = spectrogram(mixed_signal, sample_rate)
-    # # Plot the spectrogram
-    # plt.figure(figsize=(10, 6))
-    # plt.pcolormesh(times_continuous, frequencies_continuous, 10 * np.log10(spectrogram_matrix_continuous), shading='gouraud')
-    # plt.ylabel('Frequency [Hz]')
-    # plt.xlabel('Time [sec]')
-    # plt.title('Spectrogram with Less Dense Continuous Tones')
-    # plt.colorbar(label='Intensity [dB]')
-    # plt.ylim(0, 20000)
-    # plt.show()
+    frequencies_continuous, times_continuous, spectrogram_matrix_continuous = spectrogram(mixed_signal, sample_rate)
+    # Plot the spectrogram
+    plt.figure(figsize=(10, 6))
+    plt.pcolormesh(times_continuous, frequencies_continuous, 10 * np.log10(spectrogram_matrix_continuous), shading='gouraud')
+    plt.ylabel('Frequency [Hz]')
+    plt.xlabel('Time [sec]')
+    plt.title('Spectrogram with Less Dense Continuous Tones')
+    plt.colorbar(label='Intensity [dB]')
+    plt.ylim(0, 20000)
+    plt.xlim(0,3.5)
+    plt.show()
 
 main()
