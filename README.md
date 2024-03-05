@@ -1,5 +1,7 @@
 # AudioCovert: Embed and Decode Hidden Messages in Audio Files
 
+![Example Image](example.png)
+
 ## Description
 
 AudioCovert is a sophisticated tool that introduces an innovative approach to secure communication through audio files. This product provides a unique capability to embed hidden messages within WAV audio files, manipulating the audio data in a way that is imperceptible to human ears. By encoding alphanumeric characters into high-frequency signals, it crafts visual messages that are embedded within the audio spectrum. To reveal these hidden messages, one simply needs to generate and inspect the spectrogram of the audio file, allowing for a visual decoding of the embedded message.
