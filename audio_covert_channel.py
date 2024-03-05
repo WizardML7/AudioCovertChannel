@@ -214,23 +214,20 @@ def makeC(audio_signal_continuous_tones, audioLength, currentTime):
 
 # D
 def makeD(audio_signal_continuous_tones, audioLength, currentTime):
-    # Left vertical line
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
     makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
     makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
     makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
-    
-    # Top
-    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
-    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
-
-    # Bottom
     makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
     makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
 
-    # Side
     makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
     makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
     makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+
     currentTime += 5
     return currentTime
 
@@ -687,29 +684,8 @@ def makeSpace(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
     return currentTime
 
-def main():
-    # Example usage: python3 square\ copy.py ./audio_clips/popular_songs/Britney_Spears_Toxic.wav ./toxic_test.wav "ABCDEFGHI ABCDEFGHI"
 
-    ### argpase ###
-    parser = argparse.ArgumentParser(
-        description="AudioCovertChannel: Hide messages in the spectrogram of WAV files",
-        epilog="Usage: python3 audio_covert.py <input.wav> <output.wav> <message>. \
-        Message will need to be in quotes if adding spaces."
-    )
-
-    # Positional arguments
-    parser.add_argument("infile", help="Input audio file path")
-    parser.add_argument("outfile", help="Output audio file path")
-    parser.add_argument("message", help="Message to embed in the audio spectrogram")
-    args = parser.parse_args()
-    
-
-    ### Create the audio signal with the letters in them. ###
-
-    # Message Processing
-
-    message = (args.message).upper()
-
+def embed_hidden_message(message, infile, outfile):
     # Deal with varying message length.
     # The 'time' array needs to be long enough to support the entire message. 
     # The higher it is, the longer is takes, so instead of making it very large we should dynamically adjust it to the message len.
@@ -723,7 +699,7 @@ def main():
     currentTime = 0
 
     print("\nEncoding message: " + message)
-    for letter in message:
+    for letter in message.upper():
         print("\rProgress: Encoding \'" + letter + "\' ", end="")
         match letter:
             case 'A':
@@ -786,7 +762,7 @@ def main():
     ### Mix the square signal with the signal of the input file ###
 
     # Read infile
-    file_to_overlay = args.infile
+    file_to_overlay = infile
     file_to_overlay_signal = read_wav_file(file_to_overlay) # Get signal of file
 
     signal1 = file_to_overlay_signal
@@ -812,31 +788,84 @@ def main():
         mixed_signal = mixed_signal / max_val
 
     # Export to a WAV file
-    write(args.outfile, sample_rate, mixed_signal.astype(np.float32))
+    write(outfile, sample_rate, mixed_signal.astype(np.float32))
     print("\nDone")
 
-    # TODO:
-    # Make the rest of the letters
+def plot_audio_spectrum(wav_file_path, time_range=None, frequency_range=None, nfft=512, cmap='viridis'):
+    """
+    Plots the spectrogram of an audio file specified by 'wav_file_path'.
+    
+    This function reads a WAV file, converts its frames into a NumPy array to represent the audio signal, 
+    and uses the matplotlib library to plot a spectrogram of the audio signal, which is a visual representation 
+    of the spectrum of frequencies in the audio signal as they vary with time. The spectrogram is plotted with 
+    the time on the x-axis and frequency on the y-axis.
+    
+    Parameters:
+    - wav_file_path: Path to the WAV file to be analyzed.
+    - time_range: Optional tuple specifying the time range (start, end) in seconds to plot. If None, plots the entire duration.
+    - frequency_range: Optional tuple specifying the frequency range (low, high) in Hz to plot. If None, plots the full frequency range captured.
+    - nfft: Number of FFT points; higher values provide finer frequency resolution. Default is 1024.
+    - cmap: Colormap for the spectrogram. Default is 'plasma'.
+    """
+    # Read the WAV file
+    sample_rate, samples = wavfile.read(wav_file_path)
 
-    # NOTE:
-    # Instead of using the plotter, I'm using the program Audacity to view the spectrogram.
-    # Using this because it allows you to zoom, pan, scroll etc. spectrogram view easier.
-    # In the python plotter, with the scale of a large audio file, it's too hard to see individual letters.
-    # Plus plotter takes like minutes to load/plot an entire song on my laptop.
-    # Unless we could make plotter better, I think we should use Audacity for demonstration purposes.
+    # Check if stereo and take one channel
+    if samples.ndim == 2:
+        samples = samples[:, 0]
 
-    # Plotter code commented out
-    # # Generate the spectrogram for the less dense tones
-    frequencies_continuous, times_continuous, spectrogram_matrix_continuous = spectrogram(mixed_signal, sample_rate)
-    # Plot the spectrogram
-    plt.figure(figsize=(10, 6))
-    plt.pcolormesh(times_continuous, frequencies_continuous, 10 * np.log10(spectrogram_matrix_continuous), shading='gouraud')
+    # Generate the spectrogram
+    f, t, Sxx = spectrogram(samples, fs=sample_rate, nperseg=nfft)
+
+    plt.figure(figsize=(15, 4))
+    plt.pcolormesh(t, f, 10 * np.log10(Sxx), shading='gouraud', cmap=cmap)
     plt.ylabel('Frequency [Hz]')
     plt.xlabel('Time [sec]')
-    plt.title('Spectrogram with Less Dense Continuous Tones')
+    plt.title('Spectrogram of the Audio File')
     plt.colorbar(label='Intensity [dB]')
-    plt.ylim(0, 20000)
-    plt.xlim(0,3.5)
+
+    # Set x-axis limits based on the specified time range
+    if time_range:
+        plt.xlim(0,time_range)
+
+    # Set y-axis limits based on the specified frequency range
+    if frequency_range:
+        plt.ylim(frequency_range,20000)
+
     plt.show()
+
+def main():
+    parser = argparse.ArgumentParser(description="Audio file analysis and manipulation tool")
+    subparsers = parser.add_subparsers(dest='command', help='Sub-command help')
+
+    # Create the parser for the "plot" command
+    parser_plot = subparsers.add_parser('plot', help='Plot the audio spectrum of a file')
+    parser_plot.add_argument("wav_file", help="Path to the WAV file to plot")
+    parser_plot.add_argument("--xlim", help="The amount of time in seconds to display", required=False)
+    parser_plot.add_argument("--ylim", help="The lower bound of the frequency range to include in the plot", required=False)
+
+    # Create the parser for the "embed" command
+    parser_embed = subparsers.add_parser('embed', help='Embed a hidden message in an audio file')
+    parser_embed.add_argument("wav_file", help="Path to the WAV file in which to embed the message")
+    parser_embed.add_argument("outfile", help="Path to the outfile in which to embed the message")
+    parser_embed.add_argument("--message", help="The message to embed within the audio file", required=True)
+
+    args = parser.parse_args()
+
+    if args.command == 'plot':
+        if (args.xlim != None) & (args.ylim != None):
+            plot_audio_spectrum(args.wav_file, float(args.xlim), float(args.ylim))
+        elif args.ylim:
+            plot_audio_spectrum(args.wav_file, None,float(args.ylim))
+        elif args.xlim:
+            plot_audio_spectrum(args.wav_file, float(args.xlim))
+        else:
+            plot_audio_spectrum(args.wav_file)
+
+    elif args.command == 'embed':
+        embed_hidden_message(args.message, args.wav_file, args.outfile)
+    else:
+        parser.print_help()
+
 
 main()

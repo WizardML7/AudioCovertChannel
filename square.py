@@ -208,6 +208,24 @@ def makeC(audio_signal_continuous_tones, audioLength, currentTime):
     currentTime += 5
     return currentTime
 
+def makeD(audio_signal_continuous_tones, audioLength, currentTime):
+
+    makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y4(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX1Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX2Y1(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX2Y5(audio_signal_continuous_tones, audioLength, currentTime)
+
+    makeX3Y2(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y3(audio_signal_continuous_tones, audioLength, currentTime)
+    makeX3Y4(audio_signal_continuous_tones, audioLength, currentTime)
+
+    currentTime += 5
+    return currentTime
+
 def makeJ(audio_signal_continuous_tones, audioLength, currentTime):
 
     makeX1Y1(audio_signal_continuous_tones, audioLength, currentTime)
@@ -628,7 +646,7 @@ currentTime = makeA(audio_signal_continuous_tones, 1, currentTime)
 currentTime = makeB(audio_signal_continuous_tones, 1, currentTime)
 currentTime = makeC(audio_signal_continuous_tones, 1, currentTime)
 currentTime = makeY(audio_signal_continuous_tones, 1, currentTime)
-currentTime = makeZ(audio_signal_continuous_tones, 1, currentTime)
+currentTime = makeD(audio_signal_continuous_tones, 1, currentTime)
 
 
 
