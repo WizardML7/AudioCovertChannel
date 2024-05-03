@@ -2,6 +2,16 @@
 
 ![Example Image](example.png)
 
+## Generative AI Usage. Readme First!
+
+This project was done in a class called AI In Cybersecurity, a class that discussed the emerging generative AI technology and how it can be used to benefit the cybersecurity community. But what is this, a steganography tool coming out of an AI class? 
+
+Well, in this class, we were _assigned_ to make a coding project (of anything) using generative AI. It was basically an experiment to determine how AI-assisted code generation could help people. There has been much controversy has surrounding generative AI. However, this project was an attempt to be forward thinking and look more at the good that can come out of it.
+
+This does not mean at all that this project was done entirely by AI. At least at this time in early 2024, AI code generation is not mature enough to create something like this entirely on it's own. I know for sure we had to spend a lot of time debugging to get this to work. 
+
+Nonetheless, it is a fun proof of concept script. Enjoy reading the AI generated readme below!
+
 ## Description
 
 AudioCovert is a sophisticated tool that introduces an innovative approach to secure communication through audio files. This product provides a unique capability to embed hidden messages within WAV audio files, manipulating the audio data in a way that is imperceptible to human ears. By encoding alphanumeric characters into high-frequency signals, it crafts visual messages that are embedded within the audio spectrum. To reveal these hidden messages, one simply needs to generate and inspect the spectrogram of the audio file, allowing for a visual decoding of the embedded message.
