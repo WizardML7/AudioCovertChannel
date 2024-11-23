@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>AudioCovert: Embed and Decode Hidden Messages in Audio Files</title>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Project: AudioCovert</strong></li>
+        </ul>
+        <ul>
+            <li><a href="https://wizardml7.github.io/">Home</a></li>
+            <li><a href="#overview">Project Overview</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#technologies">Technologies</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="grid">
+            <section>
+                <h2>AudioCovert: Embed and Decode Hidden Messages in Audio Files</h2>
+                <img src="example.png" alt="Example of AudioCovert's spectrogram output" style="max-width:100%; height:auto;">
+                
+                <h3 id="overview">Project Overview</h3>
+                <p>
+                    AudioCovert is a tool that enables secure communication through audio files by embedding hidden messages within WAV audio files. These alterations are made in the high-frequency signals of the audio spectrum, making them imperceptible to human ears. To decode the message, the spectrogram of the audio file is generated and analyzed visually, revealing the hidden content.
+                </p>
+
+                <h3 id="features">Features</h3>
+                <ul>
+                    <li><strong>Embed Hidden Messages</strong>: Securely encode alphanumeric messages into audio files without affecting audible quality.</li>
+                    <li><strong>Visual Message Decoding</strong>: Decode hidden messages by generating and inspecting the spectrogram of the audio file.</li>
+                    <li><strong>Flexible Message Embedding</strong>: Supports encoding of various alphanumeric messages.</li>
+                </ul>
+
+                <h3 id="installation">Installation</h3>
+                <p>Before running AudioCovert, make sure you have Python installed. To install the required dependencies, use pip:</p>
+                <pre><code>pip install numpy matplotlib scipy</code></pre>
+
+                <h3 id="usage">Usage</h3>
+                <p>AudioCovert comes with two main functionalities: embedding hidden messages and decoding them by plotting the audio spectrum. Below are the instructions for each:</p>
+
+                <h4>Embedding a Hidden Message</h4>
+                <p>Use the following command to embed a message in an audio file:</p>
+                <pre><code>python audio_covert.py embed &lt;wav_file&gt; &lt;outfile&gt; --message "Your secret message"</code></pre>
+                <ul>
+                    <li><strong>&lt;wav_file&gt;</strong>: Path to the input WAV file.</li>
+                    <li><strong>&lt;outfile&gt;</strong>: Path where the output WAV file with the embedded message will be saved.</li>
+                    <li><strong>--message</strong>: The message you wish to embed.</li>
+                </ul>
+
+                <h4>Plotting the Audio Spectrum</h4>
+                <p>Use the following command to plot the audio spectrum and potentially reveal the hidden message:</p>
+                <pre><code>python audio_covert.py plot &lt;wav_file&gt; [--xlim X] [--ylim Y]</code></pre>
+                <ul>
+                    <li><strong>&lt;wav_file&gt;</strong>: Path to the WAV file you want to analyze.</li>
+                    <li><strong>--xlim</strong>: (Optional) Time range to display in the plot.</li>
+                    <li><strong>--ylim</strong>: (Optional) Frequency range to display in the plot.</li>
+                </ul>
+
+                <h3 id="example">Example</h3>
+                <h4>Embedding a message:</h4>
+                <pre><code>python audio_covert.py embed example.wav output.wav --message "Hello World"</code></pre>
+
+                <h4>Plotting the audio file to reveal the message:</h4>
+                <pre><code>python audio_covert.py plot output.wav</code></pre>
+
+                <h3 id="technologies">Technologies Used</h3>
+                <ul>
+                    <li><strong>Python</strong>: The core programming language for AudioCovert.</li>
+                    <li><strong>NumPy</strong>: For numerical computations during the encoding process.</li>
+                    <li><strong>Matplotlib</strong>: For plotting the audio spectrum and revealing hidden messages.</li>
+                    <li><strong>SciPy</strong>: For handling the WAV file and signal processing.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+    <footer class="container">
+        <small><a href="https://github.com/WizardML7">GitHub Profile</a> • <a href="#">Contact</a></small>
+    </footer>
+</body>
+</html>
